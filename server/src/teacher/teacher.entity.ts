@@ -3,20 +3,23 @@ import {Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Teacher {
     @PrimaryGeneratedColumn()
-    id: number;
+    protected readonly id: number;
 
     @Column("varchar", {"length": 255})
-    firstName: string;
+    protected firstName: string;
     
     @Column("varchar", {"length": 255})
-    lastName: string;
+    protected lastName: string;
 
     @Column()
-    phoneNumber: number;
+    protected phoneNumber: number;
 
     @Column("varchar", {"length": 255})
-    email: string;
+    protected email: string;
 
     @Column()
-    password: string;
+    protected password: string;
+
+    @Column()
+    protected role: string;
 }

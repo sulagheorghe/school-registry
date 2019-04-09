@@ -5,13 +5,17 @@ import { Subject } from "./subject.entity";
 @Entity()
 export class TeacherSubject {
     @PrimaryGeneratedColumn()
-    id:number;
+    protected readonly id:number;
 
-    @ManyToOne(type => Teacher)
+    @ManyToOne(type => Teacher, {
+        nullable: false
+    })
     @JoinColumn({"name": "teacher_id"})
-    teacher: Teacher;
+    protected teacher: Teacher;
 
-    @ManyToOne(type => Subject)
+    @ManyToOne(type => Subject, {
+        nullable: false
+    })
     @JoinColumn({"name" : "subject_id"})
-    subject: Subject;    
+    protected subject: Subject;    
 }

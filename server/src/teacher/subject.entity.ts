@@ -4,8 +4,8 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 export class Subject {
     
     @PrimaryGeneratedColumn()
-    id:number;
+    protected readonly id:number;
 
     @Column("varchar", {"length": 255})
-    name:string;
+    protected name:string;
 }

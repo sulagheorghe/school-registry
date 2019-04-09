@@ -5,15 +5,19 @@
     "username": "sula",
     "password": "oobah5kaiRe7Thi9",
     "database": "school_registry",
-    "synchronize": true,
+    "synchronize": false,
     "migrationsRun": true,
     "logging": false,
     "entities": [
        "src/**/**.entity{.ts,.js}"
     ],
+    "migrationsTableName": "migrations",
     "migrations": [
        "src/migration/**/*.ts"
     ],
+    "cli": {
+      "migrationsDir": "migration"
+    },
     "subscribers": [
        "src/subscriber/**/*.ts"
     ]

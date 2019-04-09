@@ -4,11 +4,14 @@ import {Column, PrimaryGeneratedColumn, Entity} from 'typeorm';
 export class GradeGroup{
     
     @PrimaryGeneratedColumn()
-    id:number;
+    protected id:number;
 
     @Column("smallint")
-    addmisionYear: number;
+    protected addmisionYear: number;
 
-    @Column("varchar", {"length": 1})
-    group: string;
+    @Column({
+        type: "varchar",
+        length: 1
+    })
+    protected group: string;
 }
