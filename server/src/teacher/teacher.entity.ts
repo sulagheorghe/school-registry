@@ -1,4 +1,9 @@
-import {Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    Entity,
+    Column, 
+    PrimaryGeneratedColumn,
+} from 'typeorm';
+import { TeacherBuilder } from './teacher.builder';
 
 @Entity()
 export class Teacher {
@@ -11,9 +16,6 @@ export class Teacher {
     @Column("varchar", {"length": 255})
     protected lastName: string;
 
-    @Column()
-    protected phoneNumber: number;
-
     @Column("varchar", {"length": 255})
     protected email: string;
 
@@ -22,4 +24,16 @@ export class Teacher {
 
     @Column()
     protected role: string;
-}
+
+    @Column()
+    protected phoneNumber: number;
+
+    constructor(builder: TeacherBuilder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.email = builder.email;
+        this.password = builder.password;
+        this.role = builder.role;
+        this.phoneNumber = builder.phoneNumber;
+    }
+}   
