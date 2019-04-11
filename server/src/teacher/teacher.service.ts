@@ -10,11 +10,11 @@ export class TeacherService {
     constructor (
         @InjectRepository(Teacher)
         private readonly teacherRepo: Repository<Teacher>,
-        private readonly teacherBuilder: TeacherBuilder,
         ) {}
 
     async create(createDTO: CreateTeacherDTO): Promise<Teacher> {
-        const teacher = this.teacherBuilder.
+        let teacherBuilder = new TeacherBuilder();
+        const teacher = teacherBuilder.
                 getBuilderFromDTO(createDTO).
                 generatePassword()
                 .build();

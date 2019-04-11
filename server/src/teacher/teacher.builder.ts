@@ -3,9 +3,7 @@ import * as bcrypt from 'bcryptjs';
 
 import CreateTeacherDTO from './DTO/createTeacher.dto'
 import { Teacher } from './teacher.entity';
-import { Injectable } from '@nestjs/common';
 
-@Injectable()
 export class TeacherBuilder {
 
     private firstName: string;
@@ -37,7 +35,7 @@ export class TeacherBuilder {
         });
         
 
-        bcrypt.hash(password, function(error, hash) {
+        bcrypt.hashSync(password, function(error, hash) {
             this.password = hash;
         });
 
