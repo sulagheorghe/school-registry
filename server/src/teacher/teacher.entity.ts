@@ -28,12 +28,12 @@ export class Teacher {
     @Column()
     protected phoneNumber: number;
 
-    constructor(builder: TeacherBuilder) {
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
-        this.email = builder.email;
-        this.password = builder.password;
-        this.role = builder.role;
-        this.phoneNumber = builder.phoneNumber;
+    constructor(firstName: string, lastName: string, email: string, password: string, role: string, phoneNumber: number) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.phoneNumber = phoneNumber;
     }
 }   

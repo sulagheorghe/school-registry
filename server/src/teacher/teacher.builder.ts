@@ -3,43 +3,39 @@ import * as bcrypt from 'bcryptjs';
 
 import CreateTeacherDTO from './DTO/createTeacher.dto'
 import { Teacher } from './teacher.entity';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class TeacherBuilder {
 
-    firstName: string;
+    private firstName: string;
     
-    lastName: string;
+    private lastName: string;
 
-    password: string;
+    private password: string;
 
-    email: string;
+    private email: string;
 
-    role: string;
+    private role: string;
 
-    phoneNumber: number;
+    private phoneNumber: number;
 
-    constructor (firstName: string, lastName: string, email: string, role: string, phoneNumber: number) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.role = role;
-        this.phoneNumber = phoneNumber;
-    }
-
+    
     getBuilderFromDTO(teacherDTO: CreateTeacherDTO) {
-        return new TeacherBuilder(
-            teacherDTO.firstName,
-            teacherDTO.lastName,
-            teacherDTO.email,
-            teacherDTO.role,
-            teacherDTO.phoneNumber); 
+            this.firstName = teacherDTO.firstName;
+            this.lastName = teacherDTO.lastName;
+            this.email = teacherDTO.email;
+            this.role = teacherDTO.role;
+            this.phoneNumber = teacherDTO.phoneNumber;
+            return this;
     }
 
     generatePassword() {
-        const password = pwgen.generate({
+       const password =  pwgen.generate({
             length: 8,
             numbers: true
         });
+        
 
         bcrypt.hash(password, function(error, hash) {
             this.password = hash;
@@ -49,6 +45,13 @@ export class TeacherBuilder {
     }
 
     build () {
-        return new Teacher(this);
+        return new Teacher(
+            this.firstName,
+            this.lastName,
+            this.email,
+            this.password,
+            this.role,
+            this.phoneNumber
+        );
     }
 }

@@ -1,13 +1,15 @@
-import { Controller, Get, Req, Post, Body } from '@nestjs/common';
+import { Controller, Get, Req, Post, Body, Res } from '@nestjs/common';
 import CreateTeacherDTO from './DTO/createTeacher.dto';
+import { TeacherService } from './teacher.service';
 
 @Controller('teachers')
 export class TeacherController {
+    constructor(private teacherService: TeacherService){}
 
     @Post()
     async create(@Body() createTeacherDTO: CreateTeacherDTO) {
-        console.log(createTeacherDTO);
-        
+        let teacher = this.teacherService.create(createTeacherDTO);
+        console.log(teacher);
     }
     
     
