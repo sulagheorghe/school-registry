@@ -25,10 +25,14 @@ export class Teacher {
     @Column()
     protected role: string;
 
-    @Column()
-    protected phoneNumber: number;
+    @Column({
+        type: "varchar",
+        length: 9,
+        default: ""
+    })
+    protected phoneNumber: string;
 
-    constructor(firstName: string, lastName: string, email: string, password: string, role: string, phoneNumber: number) {
+    constructor(firstName: string, lastName: string, email: string, password: string, role: string, phoneNumber: string) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

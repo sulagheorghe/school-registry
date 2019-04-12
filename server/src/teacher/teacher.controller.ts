@@ -9,7 +9,8 @@ export class TeacherController {
     @Post()
     async create(@Body() createTeacherDTO: CreateTeacherDTO) {
         let teacher = this.teacherService.create(createTeacherDTO);
-        console.log(teacher);
+        teacher.then(teacher => console.log(teacher));
+        teacher.catch(error => console.log(error));
     }
     
     

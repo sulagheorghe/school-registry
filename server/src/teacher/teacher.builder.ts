@@ -16,7 +16,7 @@ export class TeacherBuilder {
 
     private role: string;
 
-    private phoneNumber: number;
+    private phoneNumber: string;
 
     
     getBuilderFromDTO(teacherDTO: CreateTeacherDTO) {
@@ -32,13 +32,8 @@ export class TeacherBuilder {
        const password =  pwgen.generate({
             length: 8,
             numbers: true
-        });
-        
-
-        bcrypt.hashSync(password, function(error, hash) {
-            this.password = hash;
-        });
-
+        });       
+        this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(8));
         return this;
     }
 
