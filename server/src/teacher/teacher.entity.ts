@@ -4,6 +4,7 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TeacherBuilder } from './teacher.builder';
+import CreateTeacherDTO from './DTO/createTeacher.dto';
 
 @Entity()
 export class Teacher {
@@ -39,5 +40,13 @@ export class Teacher {
         this.password = password;
         this.role = role;
         this.phoneNumber = phoneNumber;
+    }
+
+    updateFromDto(teacherDTO: CreateTeacherDTO) {
+        this.firstName = teacherDTO.firstName;
+        this.lastName = teacherDTO.lastName;
+        this.email = teacherDTO.email;
+        this.phoneNumber = teacherDTO.phoneNumber;
+        this.role = teacherDTO.role;
     }
 }   

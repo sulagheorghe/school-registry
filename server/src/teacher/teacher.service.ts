@@ -20,4 +20,13 @@ export class TeacherService {
                 .build();
         return await this.teacherRepo.save(teacher);
     }
+
+    async get(id: number): Promise<Teacher>{
+        return await this.teacherRepo.findOne(id);
+    }
+
+    async updateTeacherFromDTO(teacher: Teacher, teacherDTO: CreateTeacherDTO) {
+        teacher.updateFromDto(teacherDTO);
+        return await this.teacherRepo.save(teacher);
+    }
 }
