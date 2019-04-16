@@ -13,6 +13,7 @@ export class IsTeacherExistConstraint implements ValidatorConstraintInterface {
         ){}
 
     async validate(email: any, args: ValidationArguments) {
+        console.log(args);
          return await this.teacherRepo.findOne({"where": {email: email} })? false: true;
     }
 }
