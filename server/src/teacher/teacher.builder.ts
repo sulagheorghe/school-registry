@@ -25,15 +25,13 @@ export class TeacherBuilder {
             this.email = teacherDTO.email;
             this.role = teacherDTO.role;
             this.phoneNumber = teacherDTO.phoneNumber;
+            this.password = teacherDTO.password;
             return this;
     }
 
-    generatePassword() {
-       const password =  pwgen.generate({
-            length: 8,
-            numbers: true
-        });       
-        this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(8));
+    hashPassword() {           
+        const passwordHash = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
+        this.password = passwordHash;
         return this;
     }
 

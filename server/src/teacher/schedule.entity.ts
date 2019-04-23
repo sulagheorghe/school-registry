@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
-import { Subject } from "./subject.entity";
+import { Subject } from "./subject/subject.entity";
 import { Teacher } from "./teacher.entity";
 import { GradeGroup } from "src/student/grade-group.entity";
 

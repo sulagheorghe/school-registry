@@ -3,7 +3,7 @@ import {
     Column, 
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { TeacherBuilder } from './teacher.builder';
+import {Exclude} from 'class-transformer';
 import CreateTeacherDTO from './DTO/createTeacher.dto';
 
 @Entity()
@@ -21,6 +21,7 @@ export class Teacher {
     protected email: string;
 
     @Column()
+    @Exclude()
     protected password: string;
 
     @Column()

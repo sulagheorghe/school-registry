@@ -1,4 +1,6 @@
-import {Column, PrimaryGeneratedColumn, Entity} from 'typeorm';
+import {Column, PrimaryGeneratedColumn, Entity, ManyToOne, JoinColumn} from 'typeorm';
+import { Teacher } from 'src/teacher/teacher.entity';
+import { type } from 'os';
 
 @Entity()
 export class GradeGroup{
@@ -14,4 +16,10 @@ export class GradeGroup{
         length: 1
     })
     protected group: string;
+
+    @ManyToOne(type => Teacher, {
+        nullable: false
+    })
+    @JoinColumn({"name": "teacher_id"})
+    protected classMaster: Teacher;
 }

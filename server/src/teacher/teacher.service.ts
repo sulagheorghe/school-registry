@@ -16,13 +16,17 @@ export class TeacherService {
         let teacherBuilder = new TeacherBuilder();
         const teacher = teacherBuilder.
                 getBuilderFromDTO(createDTO).
-                generatePassword()
+                hashPassword()
                 .build();
         return await this.teacherRepo.save(teacher);
     }
 
     async get(id: number): Promise<Teacher>{
         return await this.teacherRepo.findOne(id);
+    }
+
+    async getAll(): Promise<Teacher[]> {
+        return await this.teacherRepo.find();
     }
 
     async updateTeacherFromDTO(teacher: Teacher, teacherDTO: CreateTeacherDTO) {

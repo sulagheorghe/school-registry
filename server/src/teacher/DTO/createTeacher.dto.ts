@@ -42,6 +42,12 @@ export default class CreateTeacherDTO {
     })
     readonly email: string;
 
+    @Length(8,32, {
+        message: "Parola trebuie sa contina minimum 8 si maximum 32 caractere",
+        groups: ["create"]
+    })
+    readonly password: string;
+
     @IsNotEmpty({
         message: "Selectati un rol",
         groups: ["create","update"]
