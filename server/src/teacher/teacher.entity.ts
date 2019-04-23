@@ -4,35 +4,35 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import {Exclude} from 'class-transformer';
-import CreateTeacherDTO from './DTO/createTeacher.dto';
+import CreateTeacherDTO from './dto/createTeacher.dto';
 
 @Entity()
 export class Teacher {
     @PrimaryGeneratedColumn()
-    protected readonly id: number;
+    readonly id: number;
 
     @Column("varchar", {"length": 255})
-    protected firstName: string;
+     firstName: string;
     
     @Column("varchar", {"length": 255})
-    protected lastName: string;
+     lastName: string;
 
     @Column("varchar", {"length": 255})
-    protected email: string;
+     email: string;
 
     @Column()
     @Exclude()
-    protected password: string;
+     password: string;
 
     @Column()
-    protected role: string;
+     role: string;
 
     @Column({
         type: "varchar",
         length: 9,
         default: ""
     })
-    protected phoneNumber: string;
+    phoneNumber: string;
 
     constructor(firstName: string, lastName: string, email: string, password: string, role: string, phoneNumber: string) {
         this.firstName = firstName;

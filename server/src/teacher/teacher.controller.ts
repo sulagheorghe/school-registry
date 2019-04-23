@@ -1,12 +1,16 @@
 import { Controller, Get, Req, Post, Body, Res, Param, NotFoundException, Put, UsePipes, ValidationPipe, UseInterceptors } from '@nestjs/common';
-import CreateTeacherDTO from './DTO/createTeacher.dto';
+import CreateTeacherDTO from './dto/createTeacher.dto';
 import { TeacherService } from './teacher.service';
-import { TransformInterceptor } from 'src/common/interceptor/transform.interceptor';
+import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
+import { TeacherSubject } from 'src/teacher/teacher-subject/teacher-subject.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Controller('teachers')
 @UseInterceptors(TransformInterceptor)
 export class TeacherController {
-    constructor(private teacherService: TeacherService){}
+    constructor(private teacherService: TeacherService, 
+      @InjectRepository(TeacherSubject) private readonly teacherSubRep: Repository<TeacherSubject>){}
 
     @Post()
     @UsePipes(new ValidationPipe({
@@ -43,19 +47,14 @@ export class TeacherController {
         whitelist:true,
         groups: ["update"]        
       }))
-
     async editInfo(
-        @Param('id') id: number, 
-        @Body() createTeacherDTO: CreateTeacherDTO) {
-
+      @Param('id') id: number,
+      @Body() createTeacherDTO: CreateTeacherDTO) {
         const teacher = await this.teacherService.get(id);
         if (!teacher) {
             throw new NotFoundException();
         }
         return this.teacherService.updateTeacherFromDTO(teacher, createTeacherDTO);
-    }
-    
-    
-
-    
+    } 
+        
 }

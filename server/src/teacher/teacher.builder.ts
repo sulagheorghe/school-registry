@@ -1,7 +1,7 @@
 import pwgen = require('generate-password');
 import * as bcrypt from 'bcryptjs';
 
-import CreateTeacherDTO from './DTO/createTeacher.dto'
+import CreateTeacherDTO from './dto/createTeacher.dto'
 import { Teacher } from './teacher.entity';
 
 export class TeacherBuilder {

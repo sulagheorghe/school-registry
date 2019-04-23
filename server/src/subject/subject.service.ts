@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Subject } from "./subject.entity";
-import { CreateSubjectDTO } from "../DTO/createSubject.dto";
+import { CreateSubjectDTO } from "./dto/createSubject.dto";
 
 @Injectable()
 export class SubjectService {

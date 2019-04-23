@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column } from "typeorm";
 import { Student } from "./student.entity";
 import { Teacher } from "src/teacher/teacher.entity";
-import { Subject } from "src/teacher/subject/subject.entity";
+import { Subject } from "src/subject/subject.entity";
 
 @Entity()
 export class Mark{

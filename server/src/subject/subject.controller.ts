@@ -1,9 +1,10 @@
 import { Controller, Post, Body, Get, Put, Param, UsePipes, ValidationPipe, NotFoundException } from "@nestjs/common";
-import { CreateSubjectDTO } from "../DTO/createSubject.dto";
+import { CreateSubjectDTO } from "./dto/createSubject.dto";
 import { SubjectService } from "./subject.service";
+import { TeacherSubject } from "../teacher/teacher-subject/teacher-subject.entity";
 
 @Controller('subjects')
-export class SubjectController {
+export class SubjectController  {
     constructor(private readonly subjectService: SubjectService) {}
 
     @Post()

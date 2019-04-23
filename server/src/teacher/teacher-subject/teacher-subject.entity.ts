@@ -1,21 +1,22 @@
 import { PrimaryGeneratedColumn, ManyToOne, JoinColumn, Entity } from "typeorm";
 import { Teacher } from "../teacher.entity";
-import { Subject } from "./subject.entity";
+import { Subject } from "../../subject/subject.entity";
 
 @Entity()
 export class TeacherSubject {
     @PrimaryGeneratedColumn()
-    protected readonly id:number;
+    readonly id:number;
 
-    @ManyToOne(type => Teacher, {
+    @ManyToOne(type => Teacher, teacher => teacher.id, {
         nullable: false
     })
     @JoinColumn({"name": "teacher_id"})
-    protected teacher: Teacher;
+    teacher: Teacher
 
     @ManyToOne(type => Subject, {
         nullable: false
     })
     @JoinColumn({"name" : "subject_id"})
-    protected subject: Subject;    
+    subject:Subject    
+    
 }

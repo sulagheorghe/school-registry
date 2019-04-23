@@ -1,6 +1,6 @@
 
 import { IsString, IsNotEmpty, IsAlpha, MinLength, MaxLength, IsEmail, Length, ValidationArguments, IsNumberString } from 'class-validator';
-import { IsTeacherExist } from '../validator/decorator/IsTeacherExist';
+import { IsTeacherExist } from '../../common/decorators/IsTeacherExist';
 
 export default class CreateTeacherDTO {
     
