@@ -20,7 +20,6 @@ export class TeacherSubjectController {
         if (!existingTeacherSubject) {
             throw new NotFoundException()
         }
-
         existingTeacherSubject.subject = teacherSubject.subject;
         existingTeacherSubject.teacher = teacherSubject.teacher;
         this.teacherSubjService.save(existingTeacherSubject);

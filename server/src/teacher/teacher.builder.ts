@@ -1,6 +1,3 @@
-import pwgen = require('generate-password');
-import * as bcrypt from 'bcryptjs';
-
 import CreateTeacherDTO from './dto/createTeacher.dto'
 import { Teacher } from './teacher.entity';
 
@@ -27,10 +24,9 @@ export class TeacherBuilder {
             this.phoneNumber = teacherDTO.phoneNumber;
             this.password = teacherDTO.password;
             return this;
-    }
+    }    
 
-    hashPassword() {           
-        const passwordHash = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
+    addHashPassword(passwordHash: string) {           
         this.password = passwordHash;
         return this;
     }

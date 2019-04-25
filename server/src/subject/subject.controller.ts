@@ -1,9 +1,10 @@
-import { Controller, Post, Body, Get, Put, Param, UsePipes, ValidationPipe, NotFoundException } from "@nestjs/common";
+import { Controller, Post, Body, Get, Put, Param, UsePipes, ValidationPipe, NotFoundException, UseGuards } from "@nestjs/common";
 import { CreateSubjectDTO } from "./dto/createSubject.dto";
 import { SubjectService } from "./subject.service";
-import { TeacherSubject } from "../teacher/teacher-subject/teacher-subject.entity";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller('subjects')
+@UseGuards(AuthGuard('jwt'))
 export class SubjectController  {
     constructor(private readonly subjectService: SubjectService) {}
 

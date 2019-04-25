@@ -1,9 +1,9 @@
 import {
     Entity,
-    Column, 
+    Column,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import {Exclude} from 'class-transformer';
+import { Exclude } from 'class-transformer';
 import CreateTeacherDTO from './dto/createTeacher.dto';
 
 @Entity()
@@ -11,21 +11,21 @@ export class Teacher {
     @PrimaryGeneratedColumn()
     readonly id: number;
 
-    @Column("varchar", {"length": 255})
-     firstName: string;
-    
-    @Column("varchar", {"length": 255})
-     lastName: string;
+    @Column("varchar", { "length": 255 })
+    firstName: string;
 
-    @Column("varchar", {"length": 255})
-     email: string;
+    @Column("varchar", { "length": 255 })
+    lastName: string;
+
+    @Column("varchar", { "length": 255 })
+    email: string;
 
     @Column()
     @Exclude()
-     password: string;
+    password: string;
 
     @Column()
-     role: string;
+    role: string;
 
     @Column({
         type: "varchar",

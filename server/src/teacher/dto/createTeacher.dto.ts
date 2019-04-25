@@ -46,6 +46,10 @@ export default class CreateTeacherDTO {
         message: "Parola trebuie sa contina minimum 8 si maximum 32 caractere",
         groups: ["create"]
     })
+    @IsNotEmpty({
+        message: "Introduceti o parola",
+        groups: ["create"]
+    })
     readonly password: string;
 
     @IsNotEmpty({
