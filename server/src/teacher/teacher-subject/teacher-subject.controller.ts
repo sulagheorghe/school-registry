@@ -1,12 +1,18 @@
-import { Controller, Post, Body, Put, Param, NotFoundException, HttpCode, Get, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, NotFoundException, HttpCode, Get, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TeacherSubjectService } from './teacher-subject.service';
 import { TeacherSubject } from './teacher-subject.entity';
 import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
+import { TeacherService } from '../teacher.service';
+import { SubjectService } from 'src/subject/subject.service';
 
 @UseInterceptors(TransformInterceptor)
 @Controller('teacher-subject')
 export class TeacherSubjectController {
-    constructor(private readonly teacherSubjService: TeacherSubjectService) {}
+    constructor(
+        private readonly teacherSubjService: TeacherSubjectService,
+        private readonly teacherService: TeacherService,
+        private readonly subjectService: SubjectService
+        ) {}
 
     @Post()
     async createLink(@Body()teacherSubject: TeacherSubject) {
@@ -29,4 +35,5 @@ export class TeacherSubjectController {
     async getAll() {
         return this.teacherSubjService.getAll();
     }
+    
 }
