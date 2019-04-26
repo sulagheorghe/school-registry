@@ -5,7 +5,7 @@ import { Teacher } from 'src/teacher/teacher.entity';
 export class GradeGroup {
 
     @PrimaryGeneratedColumn()
-    protected id: number;
+    readonly id: number;
 
     @Column("smallint")
     protected addmisionYear: number;
@@ -16,9 +16,15 @@ export class GradeGroup {
     })
     protected group: string;
 
-    @ManyToOne(type => Teacher, {
+    @ManyToOne(type => Teacher, classMaster => classMaster.id, {
         nullable: false
     })
     @JoinColumn({ "name": "teacher_id" })
     protected classMaster: Teacher;
+
+    constructor(addmisionYear: number, group: string, classMaster: Teacher){
+        this.addmisionYear = addmisionYear;
+        this.group = group;
+        this.classMaster = classMaster;
+    }
 }

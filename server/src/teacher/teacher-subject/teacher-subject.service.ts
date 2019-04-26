@@ -21,4 +21,9 @@ export class TeacherSubjectService {
     async getAll(): Promise<TeacherSubject[]> {
         return await this.teacherSubjRepo.find({relations: ['subject','teacher']});
     }
+
+    async update(toBeUpdated: TeacherSubject, source: TeacherSubject): Promise<TeacherSubject> {
+        this.teacherSubjRepo.merge(toBeUpdated, source);
+        return await this.teacherSubjRepo.save(toBeUpdated);
+    }
 }

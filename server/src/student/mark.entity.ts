@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { Student } from "./student.entity";
 import { Teacher } from "src/teacher/teacher.entity";
 import { Subject } from "src/subject/subject.entity";
@@ -6,16 +6,16 @@ import { Subject } from "src/subject/subject.entity";
 @Entity()
 export class Mark{
     @PrimaryGeneratedColumn()
-    protected readonly id: number;
+    readonly id: number;
 
     @Column()
     protected mark: number
 
-    @Column("datetime")
+    @CreateDateColumn({name: "created_at", nullable: false})
     protected markedOn: Date;
 
-    @Column("datetime")
-    protected lastModification:Date;
+    @UpdateDateColumn({name: "last_updated", nullable: false})
+    protected lastModification: Date;
 
     @ManyToOne(type => Student, {
         nullable: false

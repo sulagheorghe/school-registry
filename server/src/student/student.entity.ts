@@ -8,20 +8,24 @@ export class Student {
     protected readonly id: number;
 
     @Column("varchar", {"length": 255})
-    protected firstName: string;
+    protected firstname: string;
 
     @Column("varchar", {"length": 255})
-    protected lastName: string;
+    protected lastname: string;
     
     @Column("varchar", {"length": 255})
     protected email: string;
 
-    @Column("date")
-    protected dateOfBirth: string;
-
-    @ManyToOne(type => GradeGroup, {
+    @ManyToOne(type => GradeGroup, grade => grade.id, {
         nullable: false
     })
     @JoinColumn({"name": "grade_group_id"})
     protected gradeGroup: GradeGroup;
+
+    constructor (firstname: string, lastname: string, email: string, grade: GradeGroup) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.gradeGroup = grade;
+    }
 }

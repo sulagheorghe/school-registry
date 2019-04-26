@@ -2,7 +2,7 @@ import { Teacher } from "src/teacher/teacher.entity";
 
 export class CreateGradeGroupDTO {
     
-    admisionYear: number;
+    addmisionYear: number;
 
     group: string;
 

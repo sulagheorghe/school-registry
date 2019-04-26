@@ -1,12 +1,14 @@
-import { Controller, Post, Body, Put, Param, NotFoundException, HttpCode, Get, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, NotFoundException, HttpCode, Get, UseInterceptors, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
 import { TeacherSubjectService } from './teacher-subject.service';
 import { TeacherSubject } from './teacher-subject.entity';
 import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
 import { TeacherService } from '../teacher.service';
 import { SubjectService } from 'src/subject/subject.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @UseInterceptors(TransformInterceptor)
 @Controller('teacher-subject')
+@UseGuards(AuthGuard('jwt'))
 export class TeacherSubjectController {
     constructor(
         private readonly teacherSubjService: TeacherSubjectService,
@@ -26,9 +28,7 @@ export class TeacherSubjectController {
         if (!existingTeacherSubject) {
             throw new NotFoundException()
         }
-        existingTeacherSubject.subject = teacherSubject.subject;
-        existingTeacherSubject.teacher = teacherSubject.teacher;
-        this.teacherSubjService.save(existingTeacherSubject);
+        this.teacherSubjService.update(existingTeacherSubject, teacherSubject);
     }
 
     @Get()
