@@ -1,25 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Alert, Container } from 'reactstrap'
+import { Switch, Route } from 'react-router-dom'
+import { Header } from './Header';
+import { SignIn } from './SignIn';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Header />
+      <Container>
+        <Alert color="warning" className="mt-3 text-center">🔥🔥🔥🔥🔥 !!!FIRE!!! 🔥🔥🔥🔥🔥</Alert>
+      </Container>
+      <Container>
+        <Switch>
+          <Route path="/" exact render={() => "home page"} />
+          <Route path="/signin" component={SignIn} />
+        </Switch>
+      </Container>
+    </React.Fragment>
   );
 }
 
