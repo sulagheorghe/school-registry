@@ -3,13 +3,13 @@ import { TypeOrmModule} from '@nestjs/typeorm';
 import { TeacherModule } from './teacher/teacher.module';
 import { StudentModule } from './student/student.module';
 import { AuthModule } from './auth/auth.module';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    TeacherModule, StudentModule, AuthModule
+    TeacherModule, StudentModule, AuthModule, ScheduleModule
   ],
-  controllers: [],
   providers: [],
 })
 export class AppModule {}

@@ -7,7 +7,7 @@
     "database": "school_registry",
     "synchronize": false,
     "migrationsRun": true,
-    "logging": false,
+    "logging": true,
     "entities": [
        "src/**/**.entity{.ts,.js}"
     ],

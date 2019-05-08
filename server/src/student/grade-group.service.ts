@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { GradeGroup } from "./grade-group.entity";
 import { Repository } from "typeorm";
 import { CreateGradeGroupDTO } from "./dto/create-grade-group.dto";
+import { GradeGroupInterface } from "./interfaces/grade-group.interface";
 
 @Injectable()
 export class GradeGroupService {
@@ -27,7 +28,7 @@ export class GradeGroupService {
         return await this.gradeGroupRepo.findOne(id, {relations: []});
     }
     
-    public async updateFromDTO(toBeUpdated: GradeGroup, source: CreateGradeGroupDTO): Promise<GradeGroup> {
+    public async updateFromDTO(toBeUpdated: GradeGroup, source: GradeGroupInterface): Promise<GradeGroup> {
         this.gradeGroupRepo.merge(toBeUpdated, source);
         return await this.gradeGroupRepo.save(toBeUpdated);
     }

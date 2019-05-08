@@ -25,7 +25,7 @@ import { PassportModule } from '@nestjs/passport';
     SubjectService, TeacherSubjectService, CryptographerService
   ],
   exports: [
-    TeacherService
+    TeacherService, SubjectService
   ]
 })
 export class TeacherModule {}

@@ -7,23 +7,30 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GradeGroup } from './grade-group.entity';
 import { Student } from './student.entity';
 import { PassportModule } from '@nestjs/passport';
+import { Mark } from './mark.entity';
+import { MarkService } from './mark.service';
+import { MarksController } from './marks.controller';
+import { TeacherModule } from 'src/teacher/teacher.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       GradeGroup, 
-      Student
+      Student,
+      Mark
     ]),
     PassportModule,
-    
+    TeacherModule        
   ],
   providers: [
     StudentService,
-    GradeGroupService
+    GradeGroupService,
+    MarkService
   ],
   controllers: [
+    MarksController,
     StudentController,
-    GradeGroupController
+    GradeGroupController,
   ]
 })
 export class StudentModule {}

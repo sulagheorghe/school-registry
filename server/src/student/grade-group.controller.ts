@@ -7,7 +7,7 @@ import { AuthGuard } from "@nestjs/passport";
 
 @Controller('grade-group')
 @UseInterceptors(TransformInterceptor)
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 export class GradeGroupController {
     constructor(private readonly gradeGroupService : GradeGroupService) {}
 
