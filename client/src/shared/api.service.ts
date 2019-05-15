@@ -23,4 +23,11 @@ export class ApiService {
       }
     })
   }
+
+  public static get<T = any>(url:string, options?: any): Promise<T> {
+    return ApiService.request(url, {
+      method: 'GET',
+      ...options
+    })
+  }
 }

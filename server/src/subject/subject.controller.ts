@@ -4,7 +4,7 @@ import { SubjectService } from "./subject.service";
 import { AuthGuard } from "@nestjs/passport";
 
 @Controller('subjects')
-@UseGuards(AuthGuard('jwt'))
+//@UseGuards(AuthGuard('jwt'))
 export class SubjectController  {
     constructor(private readonly subjectService: SubjectService) {}
 
