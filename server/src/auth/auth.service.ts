@@ -4,6 +4,7 @@ import { CryptographerService } from './cryptographer.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { Teacher } from 'src/teacher/teacher.entity';
 import { JwtService } from '@nestjs/jwt';
+import { BadCredentialsException } from './exceptions/bad-credentials.exceptions';
 
 
 
@@ -17,11 +18,11 @@ export class AuthService {
     public async logInTeacher(email, password) {
         const teacher = await this.teacherService.getOne({ email: email });
         if (!teacher) {
-            throw new UnauthorizedException();
+            throw new BadCredentialsException();
         }
         return await this.cryptoService.checkPassword(teacher.password, password)
             ? Promise.resolve(teacher)
-            : Promise.reject(new UnauthorizedException())
+            : Promise.reject(new BadCredentialsException())
     }
 
     public async validatePayloadforTeacher(payload: JwtPayload): Promise<Teacher> {
