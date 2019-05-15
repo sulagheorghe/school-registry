@@ -1,18 +1,26 @@
+const access_token = localStorage.getItem('access_token')
+
 export class ApiService {
-  private static async request<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
-    const res = await fetch(input, init);
+  private static async request<T>(input: RequestInfo, init: RequestInit = {}): Promise<T> {
+    const res = await fetch(input, {
+      ...init,
+      headers: {
+        ...init.headers,
+        ...(access_token && { 'Authorization': `Bearer ${access_token}` })
+      }
+    });
     return await res.json();
   }
 
-  public static post<T = any>(url: string, body: any | null, options?: any): Promise<T> {
-    return ApiService.request(url, {
+  public static post<T = any>(url: string, body: any | null, options: RequestInit = {}): Promise<T> {
+    return ApiService.request<T>(url, {
       method: 'POST',
       body: JSON.stringify(body),
+      ...options,
       headers: {
-        ...(options && options.headers),
-        "Content-Type": "application/json"
-      },
-      ...options
+        'Content-Type': 'application/json',
+        ...options.headers,
+      }
     })
   }
 

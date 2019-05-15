@@ -9,6 +9,7 @@ import { subjectsRoutes } from './subjects/subjects.routes';
 import { appRoutes } from './app.routes';
 
 import './app.scss'
+import { Home } from './home.component';
 
 export function App() {
   return (
@@ -16,8 +17,9 @@ export function App() {
       <Header />
       <Container className="pt-3">
         <Switch>
+          <Route path={appRoutes.signIn.path} exact component={SignIn} />
+          <Route path={appRoutes.home.path} exact component={Home} />
           <Route path={subjectsRoutes.list.path} exact component={Subjects} />
-          <Route path={appRoutes.signIn.path} component={SignIn} />
         </Switch>
       </Container>
       <Footer />

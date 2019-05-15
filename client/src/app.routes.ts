@@ -1,6 +1,6 @@
+import { createRoute } from "./utils/create-route";
+
 export const appRoutes = {
-  signIn: {
-    path: '/sign-in',
-    url: () => '/sign-in'
-  }
+  signIn: createRoute('/sign-in'),
+  home: createRoute('/')
 }
