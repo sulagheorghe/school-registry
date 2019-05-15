@@ -1,5 +1,5 @@
 export const apiRoutes = {
-  signIn: '/login',
+  signIn: '/api/login',
   students: '/api/students',
   gradeGroups: '/api/grade-group'
 }

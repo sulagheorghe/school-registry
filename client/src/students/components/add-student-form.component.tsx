@@ -62,7 +62,7 @@ export function AddStudentForm(props: AddStudentFormProps) {
                         <React.Fragment>
                           <option value="">Select Grade</option>
                           {grades.map(g => (
-                            <option value={g.id}>{g.group} ({g.addmisionYear})</option>
+                            <option key={g.id} value={g.id}>{g.group} ({g.addmisionYear})</option>
                           ))}
                         </React.Fragment>
                       )}
