@@ -3,7 +3,7 @@ import { StudentService } from './student.service';
 import { CreateStudentDTO } from './dto/create-student.dto';
 import { Student } from './student.entity';
 
-@Controller('students')
+@Controller('/api/students')
 export class StudentController {
     constructor(private readonly studentService: StudentService) {
 

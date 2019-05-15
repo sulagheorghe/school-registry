@@ -3,7 +3,7 @@ import { ApiService } from '../shared/api.service'
 import { subjectsRoutes} from './subjects.routes'
 
 
-export class Subjects extends React.Component {
+export class Subjects extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {

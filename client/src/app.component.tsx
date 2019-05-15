@@ -7,9 +7,11 @@ import { Footer } from './shared/footer.component';
 import { Subjects } from './subjects/subjects.component';
 import { subjectsRoutes } from './subjects/subjects.routes';
 import { appRoutes } from './app.routes';
+import { Home } from './home.component';
+import { studentsRoutes } from './students/students.routes';
+import { Students } from './students/students.component';
 
 import './app.scss'
-import { Home } from './home.component';
 
 export function App() {
   return (
@@ -20,6 +22,7 @@ export function App() {
           <Route path={appRoutes.signIn.path} exact component={SignIn} />
           <Route path={appRoutes.home.path} exact component={Home} />
           <Route path={subjectsRoutes.list.path} exact component={Subjects} />
+          <Route path={studentsRoutes.list.path} exact component={Students} />
         </Switch>
       </Container>
       <Footer />
