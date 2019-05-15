@@ -8,6 +8,17 @@ export class ApiService {
     return ApiService.request(url, {
       method: 'POST',
       body: JSON.stringify(body),
+      headers: {
+        ...(options && options.headers),
+        "Content-Type": "application/json"
+      },
+      ...options
+    })
+  }
+
+  public static get<T = any>(url:string, options?: any): Promise<T> {
+    return ApiService.request(url, {
+      method: 'GET',
       ...options
     })
   }
