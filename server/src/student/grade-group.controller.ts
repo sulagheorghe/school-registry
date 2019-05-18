@@ -5,7 +5,7 @@ import { GradeGroup } from "./grade-group.entity";
 import { TransformInterceptor } from "src/common/interceptors/transform.interceptor";
 import { AuthGuard } from "@nestjs/passport";
 
-@Controller('grade-group')
+@Controller('/grade-group')
 @UseInterceptors(TransformInterceptor)
 // @UseGuards(AuthGuard('jwt'))
 export class GradeGroupController {
@@ -13,7 +13,7 @@ export class GradeGroupController {
 
     @Post()
     async create(@Body() createGradeDTO: CreateGradeGroupDTO){
-       return await this.gradeGroupService.create(createGradeDTO);
+      return await this.gradeGroupService.create(createGradeDTO);
     }
 
     @Get()

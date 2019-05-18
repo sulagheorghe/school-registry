@@ -14,6 +14,7 @@ import { subjectsRoutes } from '../subjects/subjects.routes';
 import { appRoutes } from '../app.routes';
 import { l10n } from '../l10n';
 import { GlobalContext } from './global.context';
+import { studentsRoutes } from '../students/students.routes';
 
 export function Header() {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -26,11 +27,18 @@ export function Header() {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             {profile && (
+              <React.Fragment>
+                <NavItem>
+                <NavLink to={studentsRoutes.list.url()} tag={Link}>
+                  {l10n('label.students')}
+                </NavLink>
+              </NavItem>
               <NavItem>
                 <NavLink to={subjectsRoutes.list.url()} tag={Link}>
                   {l10n('label.subjects')}
                 </NavLink>
               </NavItem>
+              </React.Fragment>
             )}
             {!profile && (
               <NavItem>

@@ -24,13 +24,13 @@ export class ApiService {
     })
   }
 
-  public static get<T = any>(url:string, options?: any): Promise<T> {
-    return ApiService.request(url, {
+  public static get<T = any>(url: string, options: RequestInit = {}): Promise<T> {
+    return ApiService.request<T>(url, {
       method: 'GET',
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        ...(options && options.headers),
+        ...options.headers,
       }
     })
   }
