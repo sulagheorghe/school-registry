@@ -2,21 +2,16 @@ import { Controller, Post, Body, Get, Put, Param, UsePipes, ValidationPipe, NotF
 import { CreateSubjectDTO } from "./dto/createSubject.dto";
 import { SubjectService } from "./subject.service";
 import { AuthGuard } from "@nestjs/passport";
+import { ISubject } from "../../../common/interfaces/subject.interface";
 
 @Controller('subjects')
-//@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'))
 export class SubjectController  {
     constructor(private readonly subjectService: SubjectService) {}
 
     @Post()
-    @UsePipes(new ValidationPipe({
-        whitelist: true,
-        validationError: {
-            target: false,
-        },
-    }))
-    async create(@Body() createSubjectDto: CreateSubjectDTO){
-        this.subjectService.create(createSubjectDto);
+    async create(@Body() createSubjectDto: CreateSubjectDTO): Promise<ISubject>{
+        return this.subjectService.create(createSubjectDto);
     }
 
     @Get()
@@ -37,6 +32,6 @@ export class SubjectController  {
             throw new NotFoundException();
         }
         subject.setName(createSubjectDTO.name);
-        await this.subjectService.update(subject);
+        return await this.subjectService.update(subject);
     } 
 }

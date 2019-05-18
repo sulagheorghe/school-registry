@@ -5,5 +5,8 @@
   "label.submit": "Submit",
   "label.email": "Email",
   "label.password": "Password",
-  "label.students": "Students"
+  "label.students": "Students",
+  "label.subjectTitle": "Name",
+  "label.actions": "Actions",
+  "label.edit": "Edit"
 }

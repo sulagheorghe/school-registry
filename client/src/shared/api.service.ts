@@ -19,7 +19,7 @@ export class ApiService {
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        ...options.headers,
+        ...(options && options.headers),
       }
     })
   }
@@ -31,6 +31,18 @@ export class ApiService {
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
+      }
+    })
+  }
+
+  public static put<T = any>(url: string, body: any | null, options: RequestInit = {}): Promise<T> {
+    return ApiService.request(url, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+      ...options,
+      headers: {
+        'Content-Type': 'applications/json',
+        ...(options&&options.headers)
       }
     })
   }
