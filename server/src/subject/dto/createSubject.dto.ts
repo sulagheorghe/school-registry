@@ -1,9 +1,12 @@
-import { IsAlpha } from "class-validator";
+import { IsAlpha, Matches } from "class-validator";
+import { ISubject} from '../../../../common/interfaces/subject.interface';
 
-export class CreateSubjectDTO {
+export class CreateSubjectDTO implements ISubject{
+
+    readonly id?: number
     
-    @IsAlpha({
+    @Matches( /^[a-zA-Z\s]*$/,{
         message: "Numele trebuie sa contina doar litere"
     })
-    readonly name;
+    readonly name: string;
 }

@@ -1,13 +1,14 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { ISubject } from "../../../common/interfaces/subject.interface";
 
 @Entity()
-export class Subject {
+export class Subject implements ISubject{
     
     @PrimaryGeneratedColumn()
-    protected readonly id:number;
+    readonly id?: number;
 
     @Column("varchar", {"length": 255})
-    protected name:string;
+    name:string;
 
     constructor(name: string) {
         this.name = name;
@@ -17,7 +18,7 @@ export class Subject {
        return this.name;
     }
 
-    setName(name:string) {
+    setName(name: string) {
         this.name = name;
     } 
 

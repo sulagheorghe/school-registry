@@ -3,6 +3,7 @@ import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Subject } from "./subject.entity";
 import { CreateSubjectDTO } from "./dto/createSubject.dto";
+import { ISubject } from "../../../common/interfaces/subject.interface";
 
 @Injectable()
 export class SubjectService {
@@ -11,12 +12,12 @@ export class SubjectService {
 
     }
 
-    async create(createSubjectDTO: CreateSubjectDTO) : Promise<Subject> {
+    async create(createSubjectDTO: ISubject) : Promise<ISubject> {
         const subject = new Subject(createSubjectDTO.name);
         return await this.subjRepo.save(subject);
     }
 
-    async getAll(): Promise<Subject[]> {
+    async getAll(): Promise<ISubject[]> {
         return await this.subjRepo.find();
     }   
 

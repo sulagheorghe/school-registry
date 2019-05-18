@@ -4,5 +4,8 @@
   "label.signIn": "Sign In",
   "label.submit": "Submit",
   "label.email": "Email",
-  "label.password": "Password"
+  "label.password": "Password",
+  "label.subjectTitle": "Name",
+  "label.actions": "Actions",
+  "label.edit": "Edit"
 }

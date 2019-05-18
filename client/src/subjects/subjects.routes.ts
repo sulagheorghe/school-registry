@@ -1,9 +1,7 @@
+import { createRoute } from '../utils/create-route'
+
 export const subjectsRoutes = {
-  list: {
-    path: '/subjects',
-    url: () => '/subjects'
-  },
-  edit: {
-    path: '/subjects/'
-  }
+  create: createRoute('/subjects'),
+  list: createRoute('/subjects'),
+  detail: createRoute('/subjects/:id')
 }
