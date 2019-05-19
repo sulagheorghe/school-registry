@@ -10,8 +10,10 @@ import { appRoutes } from './app.routes';
 import { Home } from './home.component';
 import { studentsRoutes } from './students/students.routes';
 import { Students } from './students/students.component';
+import { GradeGroup } from './grade-group/grade-group.component';
 
 import './app.scss'
+import { gradeGroupsRoutes } from './grade-group/grade-groups.routes';
 
 export function App() {
   return (
@@ -23,6 +25,7 @@ export function App() {
           <Route path={appRoutes.home.path} exact component={Home} />
           <Route path={subjectsRoutes.list.path} exact component={Subjects} />
           <Route path={studentsRoutes.list.path} exact component={Students} />
+          <Route path={gradeGroupsRoutes.list.path} exact component={GradeGroup} />
         </Switch>
       </Container>
       <Footer />

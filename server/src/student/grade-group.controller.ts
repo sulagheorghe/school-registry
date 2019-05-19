@@ -5,9 +5,9 @@ import { GradeGroup } from "./grade-group.entity";
 import { TransformInterceptor } from "src/common/interceptors/transform.interceptor";
 import { AuthGuard } from "@nestjs/passport";
 
-@Controller('/grade-group')
+@Controller('/grade-groups')
 @UseInterceptors(TransformInterceptor)
-// @UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'))
 export class GradeGroupController {
     constructor(private readonly gradeGroupService : GradeGroupService) {}
 

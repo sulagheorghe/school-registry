@@ -14,7 +14,7 @@ function useGrades(): any[] | undefined {
 
   React.useEffect(function() {
     ApiService.get(apiRoutes.gradeGroups).then(grades => setGrades(grades))
-  }, [])
+  }, [])  
 
   return grades
 }

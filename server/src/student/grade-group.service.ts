@@ -13,7 +13,7 @@ export class GradeGroupService {
 
     public async create(createGradeGroupDto: CreateGradeGroupDTO): Promise<GradeGroup> {
         const gradeGroup = new GradeGroup(
-            createGradeGroupDto.addmisionYear,
+            createGradeGroupDto.admissionYear,
             createGradeGroupDto.group,
             createGradeGroupDto.classMaster);
         

@@ -9,7 +9,7 @@ export class GradeGroup implements GradeGroupInterface {
     readonly id: number;
 
     @Column("smallint")
-    addmisionYear: number;
+    admissionYear: number;
 
     @Column({
         type: "varchar",
@@ -23,8 +23,8 @@ export class GradeGroup implements GradeGroupInterface {
     @JoinColumn({ "name": "teacher_id" })
     classMaster: Teacher;
 
-    constructor(addmisionYear: number, group: string, classMaster: Teacher){
-        this.addmisionYear = addmisionYear;
+    constructor(admissionYear: number, group: string, classMaster: Teacher){
+        this.admissionYear = admissionYear;
         this.group = group;
         this.classMaster = classMaster;
     }

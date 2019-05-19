@@ -3,7 +3,7 @@ import { GradeGroupInterface } from "../interfaces/grade-group.interface";
 
 export class CreateGradeGroupDTO implements GradeGroupInterface{
     
-    addmisionYear: number;
+    admissionYear: number;
 
     group: string;
 

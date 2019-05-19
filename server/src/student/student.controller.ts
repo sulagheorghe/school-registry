@@ -1,9 +1,11 @@
-import { Controller, Post, Body, Get, Param, NotFoundException, Put } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, NotFoundException, Put, UseGuards } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDTO } from './dto/create-student.dto';
 import { Student } from './student.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('/students')
+@UseGuards(AuthGuard('jwt'))
 export class StudentController {
     constructor(private readonly studentService: StudentService) {
 

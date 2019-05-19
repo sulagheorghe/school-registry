@@ -1,7 +1,7 @@
 import { Teacher } from "src/teacher/teacher.entity";
 
 export interface GradeGroupInterface {
-    addmisionYear: number;
+    admissionYear: number;
 
     group: string;
 

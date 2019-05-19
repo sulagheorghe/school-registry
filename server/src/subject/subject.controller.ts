@@ -10,6 +10,12 @@ export class SubjectController  {
     constructor(private readonly subjectService: SubjectService) {}
 
     @Post()
+    @UsePipes(new ValidationPipe({
+        whitelist: true,
+        validationError: {
+            target: false,
+        },
+    }))
     async create(@Body() createSubjectDto: CreateSubjectDTO): Promise<ISubject>{
         return this.subjectService.create(createSubjectDto);
     }
@@ -21,7 +27,6 @@ export class SubjectController  {
 
     @Put(':id')
     @UsePipes(new ValidationPipe({
-        whitelist: true,
         validationError: {
             target: false,
         },

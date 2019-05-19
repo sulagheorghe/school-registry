@@ -15,6 +15,7 @@ import { appRoutes } from '../app.routes';
 import { l10n } from '../l10n';
 import { GlobalContext } from './global.context';
 import { studentsRoutes } from '../students/students.routes';
+import { gradeGroupsRoutes } from '../grade-group/grade-groups.routes'
 
 export function Header() {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -36,6 +37,11 @@ export function Header() {
               <NavItem>
                 <NavLink to={subjectsRoutes.list.url()} tag={Link}>
                   {l10n('label.subjects')}
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to={gradeGroupsRoutes.list.url()} tag={Link}>
+                  {l10n('label.gradeGroups')}
                 </NavLink>
               </NavItem>
               </React.Fragment>

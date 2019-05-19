@@ -1,9 +1,10 @@
 import React from 'react'
-import { ListGroup, ListGroupItem, Button, CardHeader, Card, Collapse } from 'reactstrap'
+import { ListGroupItem, Button, CardHeader, Card, Collapse, Table } from 'reactstrap'
 import { ApiService } from '../shared/api.service';
 import { apiRoutes } from '../api.routes';
 import { RouteComponentProps } from 'react-router';
 import { AddStudentForm } from './components/add-student-form.component';
+import { l10n } from '../l10n'
 
 type StudentsState = {
   students: any[] | undefined
@@ -36,7 +37,7 @@ export class Students extends React.Component<RouteComponentProps, StudentsState
               color="link"
               onClick={this.toggleAddStudentForm}
               disabled={showAddStudentForm}>
-              Add student
+              {l10n('label.addStudent')}
             </Button>
           </CardHeader>
           <Collapse isOpen={showAddStudentForm}>
@@ -46,13 +47,40 @@ export class Students extends React.Component<RouteComponentProps, StudentsState
             />
           </Collapse>
         </Card>
-        <ListGroup>
-          {students.length === 0 && <ListGroupItem>No Students</ListGroupItem>}
-          {students.map(s => (
-            <ListGroupItem key={s.id}>{s.email}</ListGroupItem>
-          ))}
-        </ListGroup>
-      </React.Fragment>
+        {students.length === 0 && <ListGroupItem>No Students</ListGroupItem>}
+        {students.length !==0 && <Table striped>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>{l10n('label.lastname')}</th>
+              <th>{l10n('label.firstname')}</th>
+              <th>{l10n('label.groupGrade')}</th>
+              <th>{l10n('label.email')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              students.map((student, index) =>
+                <tr key={student.id}>
+                  <th scope="row">{index + 1}</th>
+                  <td>
+                    {student.firstname}
+                  </td>
+                  <td>
+                    {student.lastname}
+                  </td><td>
+                    {student.gradeGroup.addmisionYear + ' - ' + student.gradeGroup.group}
+                  </td>
+                  <td>
+                    {student.email}
+                  </td>
+                </tr>
+              )
+            }
+          </tbody>
+        </Table>
+        }
+      </React.Fragment >
     )
   }
 

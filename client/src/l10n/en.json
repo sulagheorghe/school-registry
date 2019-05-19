@@ -8,5 +8,16 @@
   "label.students": "Students",
   "label.subjectTitle": "Name",
   "label.actions": "Actions",
-  "label.edit": "Edit"
+  "label.edit": "Edit",
+  "label.subjectName": "Subject name",
+  "label.newSubject": "New Subject",
+  "label.firstname": "First name",
+  "label.lastname": "Last name",
+  "label.groupGrade": "Grade",
+  "label.addStudent": "Add student",
+  "label.admissionYear": "Admission year",
+  "label.group": "Group",
+  "label.gradeGroups": "Grade groups",
+  "label.classMaster": "Class master",
+  "label.newGroup": "New group"
 }

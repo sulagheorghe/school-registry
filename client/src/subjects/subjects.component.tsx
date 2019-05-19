@@ -1,13 +1,15 @@
 import { default as React } from 'react'
-import { Table, Button } from 'reactstrap'
+import { Table, Button, Collapse } from 'reactstrap'
 import { ApiService } from '../shared/api.service'
-import { subjectsRoutes } from './subjects.routes'
+import { apiRoutes } from '../api.routes'
 import { l10n } from '../l10n';
 import { ISubject } from '../../../common/interfaces/subject.interface';
+import { AddSubjectForm} from './components/add-subject-form.component';
 
 type SubjectState = {
   subjects: ISubject[],
-  editable: number
+  editable: number,
+  showAddSubjectForm: boolean
 }
 
 export class Subjects extends React.Component<any, SubjectState> {
@@ -15,15 +17,15 @@ export class Subjects extends React.Component<any, SubjectState> {
     super(props);
     this.state = {
       subjects: [],
-      editable: -1
+      editable: -1,
+      showAddSubjectForm: false
     }
-    this.onNewClick = this.onNewClick.bind(this);
   }
 
   componentDidMount() {
     ApiService
-      .get(subjectsRoutes.list.path)
-      .then(result => this.setState({ subjects: result }))
+      .get(apiRoutes.subjects)
+      .then(subjects => this.setState({ subjects: subjects }))
       .catch(error => alert(error.message));
   }
 
@@ -45,38 +47,30 @@ export class Subjects extends React.Component<any, SubjectState> {
   onClick = (index: number) => (e: any) => this.setState({ editable: index });
 
   onBlur = (subject: ISubject) => async  (e: any) => {
-    try {
-      if (subject.id) {
-        await ApiService.put(subjectsRoutes.detail.url({ id: subject.id }),subject)
-      } else {
-        const result = await ApiService.post(subjectsRoutes.create.url(), subject); 
-        this.setState({
-          subjects: this.state.subjects.concat(result),
-          editable: this.state.subjects.length
-        })
-      }
-    } catch(e) {
-      alert(e.message);
-    }
+      await ApiService.put(apiRoutes.subjectDetail(subject.id? subject.id: 0), subject)
+  } 
+
+  toggleAddSubjectForm = () => {
+
+    this.setState({showAddSubjectForm: !this.state.showAddSubjectForm })
   }
 
-  onNewClick = (lastEdited:number) => (e:any) => {
-    const newSubject = {
-      name: ''
-    };
-    this.setState({
-      subjects: this.state.subjects.concat(newSubject),
-      editable: lastEdited
-    })
-
+  submitAddStudentForm = (formData: any) => {
+    return ApiService.post(apiRoutes.subjects, formData)
+      .then(subject => {
+        this.setState({
+          subjects: this.state.subjects.concat(subject),
+          showAddSubjectForm: false
+        })
+      })
   }
 
   render() {
-    const { subjects, editable } = this.state;
+    const { subjects, editable, showAddSubjectForm } = this.state;
     return (<div>
       <Table striped>
         <thead>
-          <tr key={subjects.length + 1}>
+          <tr>
             <th>#</th>
             <th>{l10n('label.subjectTitle')}</th>
           </tr>
@@ -85,7 +79,7 @@ export class Subjects extends React.Component<any, SubjectState> {
           {
             subjects.map((subject, index) =>
               <tr key={subject.id}>
-                <th scope="row">{subject.id}</th>
+                <th scope="row">{index + 1}</th>
                 <td>
                   <input
                     type="text"
@@ -104,7 +98,18 @@ export class Subjects extends React.Component<any, SubjectState> {
           }
         </tbody>
       </Table>
-      <Button onClick={this.onNewClick(subjects.length)} color="secondary">Disciplina noua</Button>
+      <Button 
+        disabled={showAddSubjectForm}
+        onClick={this.toggleAddSubjectForm} 
+        color="secondary">
+        {l10n('label.newSubject')}
+      </Button>
+      <Collapse isOpen={showAddSubjectForm}>
+            <AddSubjectForm
+              onCancel={this.toggleAddSubjectForm}
+              onSubmit={this.submitAddStudentForm}
+            />
+          </Collapse>
     </div>
     );
   }
