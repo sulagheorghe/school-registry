@@ -1,6 +1,6 @@
 import { Column, PrimaryGeneratedColumn, Entity, ManyToOne, JoinColumn } from 'typeorm';
 import { Teacher } from 'src/teacher/teacher.entity';
-import { GradeGroupInterface } from './interfaces/grade-group.interface';
+import { GradeGroupInterface } from '../../../common/interfaces/grade-group.interface';
 
 @Entity()
 export class GradeGroup implements GradeGroupInterface {

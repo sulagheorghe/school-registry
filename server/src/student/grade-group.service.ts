@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { GradeGroup } from "./grade-group.entity";
 import { Repository } from "typeorm";
 import { CreateGradeGroupDTO } from "./dto/create-grade-group.dto";
-import { GradeGroupInterface } from "./interfaces/grade-group.interface";
+import { GradeGroupInterface } from "../../../common/interfaces/grade-group.interface";
 
 @Injectable()
 export class GradeGroupService {

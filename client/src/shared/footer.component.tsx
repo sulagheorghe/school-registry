@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <section className="bg-dark text-light p-3 mt-auto text-center">
       <Container>
-        School registry footer
+        School registry 2019 - {new Date().getFullYear()}
       </Container>
     </section>
   );

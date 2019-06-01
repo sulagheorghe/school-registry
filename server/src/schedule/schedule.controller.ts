@@ -22,7 +22,7 @@ export class ScheduleController {
             if (!(schedule.dayOfWeek in aresult)) {
                 aresult[schedule.dayOfWeek] = [] 
             }
-            const clasa = schedule.gradeGroup.addmisionYear + ''+ schedule.gradeGroup.group;
+            const clasa = schedule.gradeGroup.admissionYear + ''+ schedule.gradeGroup.group;
             if (!(clasa in aresult[schedule.dayOfWeek])) {
                 aresult[schedule.dayOfWeek][clasa] = [];
             }

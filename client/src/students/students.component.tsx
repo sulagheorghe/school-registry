@@ -5,6 +5,7 @@ import { apiRoutes } from '../api.routes';
 import { RouteComponentProps } from 'react-router';
 import { AddStudentForm } from './components/add-student-form.component';
 import { l10n } from '../l10n'
+import { formatGradeGroup } from '../utils/format-grade-group';
 
 type StudentsState = {
   students: any[] | undefined
@@ -34,7 +35,7 @@ export class Students extends React.Component<RouteComponentProps, StudentsState
         <Card className="mb-3">
           <CardHeader>
             <Button
-              color="link"
+              color="secondary"
               onClick={this.toggleAddStudentForm}
               disabled={showAddStudentForm}>
               {l10n('label.addStudent')}
@@ -69,7 +70,7 @@ export class Students extends React.Component<RouteComponentProps, StudentsState
                   <td>
                     {student.lastname}
                   </td><td>
-                    {student.gradeGroup.addmisionYear + ' - ' + student.gradeGroup.group}
+                    {formatGradeGroup(student.gradeGroup)}
                   </td>
                   <td>
                     {student.email}

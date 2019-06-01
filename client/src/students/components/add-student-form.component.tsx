@@ -3,6 +3,7 @@ import { CardBody, CardFooter, Button, Form, FormGroup, Row, Col } from 'reactst
 import { Form as FinalForm, Field } from 'react-final-form';
 import { ApiService } from '../../shared/api.service';
 import { apiRoutes } from '../../api.routes';
+import { formatGradeGroup } from '../../utils/format-grade-group'
 
 type AddStudentFormProps = {
   onCancel: () => any
@@ -62,7 +63,7 @@ export function AddStudentForm(props: AddStudentFormProps) {
                         <React.Fragment>
                           <option value="">Select Grade</option>
                           {grades.map(g => (
-                            <option key={g.id} value={g.id}>{g.group} ({g.addmisionYear})</option>
+                            <option key={g.id} value={g.id}>{ formatGradeGroup(g) }</option>
                           ))}
                         </React.Fragment>
                       )}

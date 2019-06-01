@@ -1,5 +1,5 @@
 import { default as React } from 'react'
-import { Table, Button, Collapse } from 'reactstrap'
+import { Table, Button, Collapse, Card, CardHeader } from 'reactstrap'
 import { ApiService } from '../shared/api.service'
 import { apiRoutes } from '../api.routes'
 import { l10n } from '../l10n';
@@ -67,7 +67,24 @@ export class Subjects extends React.Component<any, SubjectState> {
 
   render() {
     const { subjects, editable, showAddSubjectForm } = this.state;
-    return (<div>
+    return (<React.Fragment>
+      <Card>
+        <CardHeader>
+      <Button 
+        disabled={showAddSubjectForm}
+        onClick={this.toggleAddSubjectForm} 
+        color="secondary">
+        {l10n('label.newSubject')}
+      </Button>
+      </CardHeader>
+      <Collapse isOpen={showAddSubjectForm}>
+            <AddSubjectForm
+              onCancel={this.toggleAddSubjectForm}
+              onSubmit={this.submitAddStudentForm}
+            />
+      </Collapse>
+
+      </Card>
       <Table striped>
         <thead>
           <tr>
@@ -98,19 +115,8 @@ export class Subjects extends React.Component<any, SubjectState> {
           }
         </tbody>
       </Table>
-      <Button 
-        disabled={showAddSubjectForm}
-        onClick={this.toggleAddSubjectForm} 
-        color="secondary">
-        {l10n('label.newSubject')}
-      </Button>
-      <Collapse isOpen={showAddSubjectForm}>
-            <AddSubjectForm
-              onCancel={this.toggleAddSubjectForm}
-              onSubmit={this.submitAddStudentForm}
-            />
-          </Collapse>
-    </div>
+      
+    </React.Fragment>
     );
   }
 }

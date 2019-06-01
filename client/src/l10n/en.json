@@ -1,5 +1,6 @@
 {
   "app.title": "School registry",
+  "app.search": "Search",
   "label.subjects": "Subjects",
   "label.signIn": "Sign In",
   "label.submit": "Submit",
@@ -19,5 +20,10 @@
   "label.group": "Group",
   "label.gradeGroups": "Grade groups",
   "label.classMaster": "Class master",
-  "label.newGroup": "New group"
+  "label.newGroup": "New group",
+  "label.addTeacher": "Add Teacher",
+  "label.teachers": "Teachers",
+  "label.role": "Role",
+  "label.phoneNumber": "Phone number",
+  "label.schedule": "Schedule"
 }
