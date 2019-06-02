@@ -7,7 +7,7 @@ import { SubjectService } from 'src/subject/subject.service';
 import { AuthGuard } from '@nestjs/passport';
 
 @UseInterceptors(TransformInterceptor)
-@Controller('teacher-subject')
+@Controller('teacher-subjects')
 @UseGuards(AuthGuard('jwt'))
 export class TeacherSubjectController {
     constructor(
