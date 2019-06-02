@@ -4,6 +4,7 @@ import { GradeGroupService } from "./grade-group.service";
 import { GradeGroup } from "./grade-group.entity";
 import { TransformInterceptor } from "src/common/interceptors/transform.interceptor";
 import { AuthGuard } from "@nestjs/passport";
+import { async } from "rxjs/internal/scheduler/async";
 
 @Controller('/grade-groups')
 @UseInterceptors(TransformInterceptor)
@@ -19,6 +20,15 @@ export class GradeGroupController {
     @Get()
     async getAll(): Promise<GradeGroup[]> {
         return await this.gradeGroupService.getAll();
+    }
+
+    @Get(':id')
+    async getById(@Param('id') id: number): Promise<GradeGroup> {
+        const gradeGroup = await this.gradeGroupService.getById(id);
+        if (!gradeGroup) {
+            throw new NotFoundException();
+        }
+        return gradeGroup;
     }
 
     @Put(':id')

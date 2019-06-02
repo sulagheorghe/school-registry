@@ -18,6 +18,7 @@ import { teachersRoutes } from './teachers/teachers.routes';
 import { Teachers } from './teachers/teacher.component';
 import { scheduleRoutes } from './schedule/schedule.routes';
 import { Schedule } from './schedule/schedule.component';
+import { GradeGroupSchedule } from './schedule/components/grade-group-schedule.component';
 
 export function App() {
   return (
@@ -32,6 +33,7 @@ export function App() {
           <Route path={teachersRoutes.list.path} exact component={Teachers} />
           <Route path={gradeGroupsRoutes.list.path} exact component={GradeGroup} />
           <Route path={scheduleRoutes.list.path} exact component={Schedule} />
+          <Route path={scheduleRoutes.view.path} exact component={GradeGroupSchedule} />
         </Switch>
       </Container>
       <Footer />

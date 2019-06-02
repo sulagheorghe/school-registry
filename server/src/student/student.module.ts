@@ -31,6 +31,9 @@ import { TeacherModule } from 'src/teacher/teacher.module';
     MarksController,
     StudentController,
     GradeGroupController,
+  ],
+  exports: [
+    GradeGroupService
   ]
 })
 export class StudentModule {}

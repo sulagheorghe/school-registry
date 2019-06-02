@@ -1,9 +1,11 @@
-import { Teacher } from "src/teacher/teacher.entity";
+import { Teacher } from '../../server/src/teacher/teacher.entity';
 
 export interface GradeGroupInterface {
+    id?: number, 
+    
     admissionYear: number;
 
     group: string;
 
-    classMaster: Teacher;
+    classMaster: Teacher|number;
 }

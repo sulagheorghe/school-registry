@@ -22,4 +22,14 @@ export class ScheduleService {
     public async getAllWithDependecies(): Promise<Schedule[]> {
         return this.scheduleRepo.find({relations: ['teacher', 'subject','gradeGroup']});
     }
+
+    public async getGradeGroupSchedule(id: number): Promise<Schedule[]> {
+        return await this.scheduleRepo.find({
+            where: {
+                gradeGroup: id
+            },
+            relations: ['teacher', 'subject','gradeGroup']
+        });
+    }
+
 }
