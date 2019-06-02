@@ -103,13 +103,9 @@ function daysOfMonth(dayOfWeek: DayOfWeek) {
 }
 
 function generateColumns(schedules: any[]) {
-  const dayOfMonth: any = schedules.flatMap(schedule =>
+  const dayOfMonth: number[] = schedules.flatMap(schedule =>
     daysOfMonth(schedule.dayOfWeek)
   );
-  console.log( Object.keys(dayOfMonth)
-  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
-  .reduce(function(acc: any, key: any) {
-    acc[key] = dayOfMonth[key]
-    return acc
-  }, {}))
+  dayOfMonth.sort((a, b) => a - b );
+  
 }
