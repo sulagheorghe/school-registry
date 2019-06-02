@@ -28,7 +28,7 @@ export class GradeGroupService {
         return await this.gradeGroupRepo.findOne(id, {relations: []});
     }
     
-    public async updateFromDTO(toBeUpdated: GradeGroup, source: GradeGroupInterface): Promise<GradeGroup> {
+    public async updateFromDTO(toBeUpdated: GradeGroup, source: GradeGroup): Promise<GradeGroup> {
         this.gradeGroupRepo.merge(toBeUpdated, source);
         return await this.gradeGroupRepo.save(toBeUpdated);
     }

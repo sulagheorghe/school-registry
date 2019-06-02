@@ -1,1 +1,1 @@
-export const dayOfWeeks = ['Monday', 'Tuesday', 'Wednesday', 'Thursday']
+export const dayOfWeeks = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
