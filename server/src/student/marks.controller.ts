@@ -23,16 +23,16 @@ export class MarksController {
         return this.markService.createFromDTO(createMarkDto);
     }
 
-    @Get('subject/:id/month/:month')
+    @Get('/grade-group/:gradeId/subject/:subjId')
     async getForSubject(
-        @Param('id') subjectId: number, 
-        @Param('month', new MonthValidation()) monthOrder: number
+        @Param('gradeId') gradeId: number, 
+        @Param('subjId') subjId: number
     ){
-        const subject = await this.subjectService.get(subjectId);
+        const subject = await this.subjectService.get(subjId);
         if (!subject) {
             throw new NotFoundException();
         }
-        return await this.markService.getAllBySubjectAndMonth(subject, monthOrder);
+        return await this.markService.getGradeGroupForSubject(subjId, gradeId);
     }
 
     @Put(':id')
@@ -52,4 +52,5 @@ export class MarksController {
         }
         await this.markService.delete(mark);
     }
+    
 }
