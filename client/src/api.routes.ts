@@ -4,13 +4,13 @@ export const apiRoutes = {
   studentDetail: (id: number) => `/api/students/${id}`,
   groupStudents: (groupId: string) => `/api/students/grade-group/${groupId}`,
   gradeGroups: "/api/grade-groups",
-  gradeGroupDetail: (id: number) => `/api/grade-groups/${id}`,
+  gradeGroupDetail: (id: string) => `/api/grade-groups/${id}`,
   subjects: "/api/subjects",
   subjectDetail: (id: number) => `/api/subjects/${id}`,
   teachers: "/api/teachers",
   teacherSubjects: "/api/teacher-subjects",
   schedule: "/api/schedules",
-  gradeGroupSchedule: (gradeGroupId: number) =>
+  gradeGroupSchedule: (gradeGroupId: string) =>
     `/api/schedules/grade-group/${gradeGroupId}`,
   gradeSubjectSchedule: (gradeGroupId: string, subjectId: string) =>
     `/api/schedules/grade-group/${gradeGroupId}/subjects/${subjectId}`,

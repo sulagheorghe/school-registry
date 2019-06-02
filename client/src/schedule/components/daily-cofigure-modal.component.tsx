@@ -1,103 +1,96 @@
 import React from "react";
+import { Form as FinalForm, Field } from 'react-final-form'
 import {
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
   Button,
-  Card,
-  CardHeader,
-  Collapse
+  FormGroup,
+  Form,
 } from "reactstrap";
-import { GradeGroupInterface } from "../../../../common/interfaces/grade-group.interface";
-import { AddScheduleRecordForm } from "./add-schedule-record-form.component";
 import { ApiService } from "../../shared/api.service";
 import { apiRoutes } from "../../api.routes";
+import { useTeachers } from "../../grade-group/components/add-grade-group-form";
+import { dayOfWeeks } from "../constants/day-of-week.constant";
 
 type DailyConfigureModalProps = {
-  dayOfWeek: string;
-  gradeGroup: GradeGroupInterface;
-  currentDaySchedule: any[];
-  isOpen: boolean;
-  toggle: () => any;
-  updateCurrentSchedule: (newRecord: any) => any;
-};
+  isOpen: boolean
+  onAdd: (data: any) => any
+  onCancel: () => any
+  groupId: string
+}
 
-type DailyConfigureModalState = {
-  showAddRecordForm: boolean;
-  currentDaySchedule: any[];
-};
+export function DailyConfigureModal(props: DailyConfigureModalProps) {
+  const teachers = useTeachers()
+  const subjects = useSubjects()
 
-export class DailyConfigureModal extends React.Component<
-  DailyConfigureModalProps,
-  DailyConfigureModalState
-> {
-  state: DailyConfigureModalState = {
-    showAddRecordForm: false,
-    currentDaySchedule: this.props.currentDaySchedule
-  };
-
-  render = () => {
-    console.log(this.state, this.props);
-    const { showAddRecordForm, currentDaySchedule } = this.state;
-    return (
-      <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>
-        <ModalHeader toggle={this.props.toggle}>
-          {this.props.dayOfWeek}
-        </ModalHeader>
-        <ModalBody>
-          <ol type="1">
-            {currentDaySchedule.map(record => (
-              <li key={record.subject.id}>{record.subject.name}</li>
-            ))}
-          </ol>
-          <Card className="mb-3">
-            <CardHeader>
-              <Button
-                color="secondary"
-                onClick={this.toggleAddRecordForm}
-                disabled={showAddRecordForm}
-              >
-                Add
-              </Button>
-            </CardHeader>
-            <Collapse isOpen={showAddRecordForm}>
-              <AddScheduleRecordForm
-                onCancel={this.toggleAddRecordForm}
-                onSubmit={this.submitAddRecordForm}
-              />
-            </Collapse>
-          </Card>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={this.props.toggle}>
-            Do Something
-          </Button>{" "}
-          <Button color="secondary" onClick={this.props.toggle}>
-            Cancel
-          </Button>
-        </ModalFooter>
-      </Modal>
-    );
-  };
-
-  toggleAddRecordForm = () => {
-    this.setState({
-      showAddRecordForm: !this.state.showAddRecordForm
-    });
-  };
-
-  submitAddRecordForm = (formData: any) => {
-    const request = {
-      gradeGroup: this.props.gradeGroup.id,
-      dayOfWeek: this.props.dayOfWeek,
+  function onSubmit(formData: any) {
+    return ApiService.post(apiRoutes.schedule, {
+      gradeGroup: parseInt(props.groupId, 10),
       ...formData
-    };
-    return ApiService.post(apiRoutes.schedule, request).then(newRecord => {
-      this.setState({
-        showAddRecordForm: false
-      });
-      this.props.updateCurrentSchedule(newRecord);
-    });
-  };
+    }).then(props.onAdd);
+  }
+
+  return (
+    <Modal isOpen={props.isOpen}>
+      <FinalForm onSubmit={onSubmit} render={({ handleSubmit, form }) => {
+        return (
+          <Form onSubmit={e => handleSubmit(e)!.then(form.reset)} autoComplete="off">
+            <ModalHeader>Add subject</ModalHeader>
+            <fieldset disabled={!teachers || !subjects}>
+              <ModalBody>
+                <FormGroup>
+                  <Field name="subject" className="custom-select" component="select" >
+                    {!subjects && <option>Loading subjects</option>}
+                    {subjects && (
+                      <React.Fragment>
+                        <option hidden>Select subject</option>
+                        {subjects.map(subject => (
+                          <option key={subject.id} value={subject.id}>{subject.name}</option>
+                        ))}
+                      </React.Fragment>
+                    )}
+                  </Field>
+                </FormGroup>
+                <FormGroup>
+                  <Field name="teacher" className="custom-select" component="select">
+                    {!teachers && <option>Loading teachers</option>}
+                    {teachers && (
+                      <React.Fragment>
+                        <option hidden>Select teacher</option>
+                        {teachers.map(teacher => (
+                          <option key={teacher.id} value={teacher.id}>{`${teacher.lastName} ${teacher.firstName}`}</option>
+                        ))}
+                      </React.Fragment>
+                    )}
+                  </Field>
+                </FormGroup>
+                <FormGroup>
+                  <Field name="dayOfWeek" className="custom-select" component="select">
+                    <option hidden>Select day of week</option>
+                    {dayOfWeeks.map(d => <option key={d} value={d}>{d}</option>)}
+                  </Field>
+                </FormGroup>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="success" className="mr-3">Save</Button>
+                <Button onClick={props.onCancel}>Cancel</Button>
+              </ModalFooter>
+            </fieldset>
+          </Form>
+        )
+      }} />
+    </Modal>
+  );
+}
+
+function useSubjects(): any[] | undefined {
+  const [subjects, setSubjects] = React.useState(undefined)
+
+  React.useEffect(function () {
+    ApiService.get(apiRoutes.subjects).then(subjects => setSubjects(subjects))
+  }, [])
+
+  return subjects;
 }
