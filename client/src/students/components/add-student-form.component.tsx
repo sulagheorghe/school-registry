@@ -4,18 +4,19 @@ import { Form as FinalForm, Field } from 'react-final-form';
 import { ApiService } from '../../shared/api.service';
 import { apiRoutes } from '../../api.routes';
 import { formatGradeGroup } from '../../utils/format-grade-group'
+import { GradeGroupInterface } from '../../../../common/interfaces/grade-group.interface';
 
 type AddStudentFormProps = {
   onCancel: () => any
   onSubmit: (formData: any) => any
 }
 
-function useGrades(): any[] | undefined {
+export function useGrades(): GradeGroupInterface[] | undefined {
   const [grades, setGrades] = React.useState(undefined)
 
   React.useEffect(function() {
     ApiService.get(apiRoutes.gradeGroups).then(grades => setGrades(grades))
-  }, [])  
+  }, [])
 
   return grades
 }
