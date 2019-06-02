@@ -8,15 +8,13 @@ import { async } from 'rxjs/internal/scheduler/async';
 @Controller('/students')
 @UseGuards(AuthGuard('jwt'))
 export class StudentController {
-    constructor(private readonly studentService: StudentService) {
-
-    }
+    constructor(private readonly studentService: StudentService) {}
 
     @Post()
     async create(@Body() createStudentDTO: CreateStudentDTO) {
         return this.studentService.createFromDTO(createStudentDTO);
     }
-    
+
     @Get(':id')
     async get(@Param('id') id: number) {
         const student = await this.studentService.getById(id, true);

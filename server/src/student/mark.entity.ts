@@ -49,5 +49,6 @@ export class Mark {
         this.student = student;
         this.subject = subject;
         this.teacher = teacher;
+        this.isPresent = isPresent;
     }
 }
