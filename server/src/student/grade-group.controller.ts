@@ -5,12 +5,17 @@ import { GradeGroup } from "./grade-group.entity";
 import { TransformInterceptor } from "src/common/interceptors/transform.interceptor";
 import { AuthGuard } from "@nestjs/passport";
 import { async } from "rxjs/internal/scheduler/async";
+import { Student } from "./student.entity";
+import { StudentService } from "./student.service";
 
 @Controller('/grade-groups')
 @UseInterceptors(TransformInterceptor)
 @UseGuards(AuthGuard('jwt'))
 export class GradeGroupController {
-    constructor(private readonly gradeGroupService : GradeGroupService) {}
+    constructor(
+        private readonly gradeGroupService : GradeGroupService, 
+        private readonly studentService: StudentService
+        ) {}
 
     @Post()
     async create(@Body() createGradeDTO: CreateGradeGroupDTO){
@@ -31,12 +36,13 @@ export class GradeGroupController {
         return gradeGroup;
     }
 
-    @Put(':id')
-    async edit(@Param('id') id: number, @Body() createGradeGroupDTO: CreateGradeGroupDTO) {
+
+    @Get(':id/students')
+    async getStudents(@Param('id') id: number): Promise<Student[]>{
         const gradeGroup = await this.gradeGroupService.getById(id);
         if (!gradeGroup) {
             throw new NotFoundException();
         }
-        return await this.gradeGroupService.updateFromDTO(gradeGroup, createGradeGroupDTO);
+        return await this.studentService.getGradeGroupsStudent(gradeGroup);
     }
 }
