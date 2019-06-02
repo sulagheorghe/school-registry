@@ -13,6 +13,7 @@ export function Schedule() {
       {grades && grades.length === 0 && <ListGroupItem>Loading grade groups</ListGroupItem>}
       {grades && grades.map(g => (
         <ListGroupItem
+          key={g.id}
           action
           to={scheduleRoutes.view.url({ id: g.id })}
           tag={Link}>

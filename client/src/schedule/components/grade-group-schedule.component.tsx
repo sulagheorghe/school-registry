@@ -6,90 +6,81 @@ import { formatGradeGroup } from '../../utils/format-grade-group';
 import { Table, Button, ListGroup, ListGroupItem } from 'reactstrap';
 import { DailyConfigureModal } from './daily-cofigure-modal.component';
 import { dayOfWeeks } from '../constants/day-of-week.constant';
+import { RouteComponentProps } from 'react-router';
 
-type GradeGroupScheduleState = {
-  gradeWeekSchedule: { [key: string]: any },
-  showScheduleConfigureModal: boolean,
-  gradeGroup?: GradeGroupInterface,
-  dayOfWeek: string,
-  activeSchedule: any[]
+export function GradeGroupSchedule(props: RouteComponentProps<{ id: string }>) {
+  const groupId = props.match.params.id
+  const gradeGroup = useGradeGroup(groupId)
+  const gradeWeekSchedule = useGradeWeekSchedule(groupId)
+  const [isOpenAddSubjectModal, setIsOpenAddSubjectModal] = React.useState(false)
+
+  if (!gradeWeekSchedule || !gradeGroup) {
+    return <h1>Loading schedule...</h1>
+  }
+
+  return (
+    <React.Fragment>
+      <div className="d-flex align-items-center">
+        <h1>Schedule for {formatGradeGroup(gradeGroup)}</h1>
+        <Button className="ml-3" onClick={() => setIsOpenAddSubjectModal(true)}>Add</Button>
+      </div>
+      <Table>
+        <thead>
+          <tr>{dayOfWeeks.map(d => <th key={d}>{d}</th>)}</tr>
+        </thead>
+        <tbody>
+          <tr>
+            {dayOfWeeks.map(weekDay => (
+              <td key={weekDay}>
+                {!gradeWeekSchedule[weekDay] && (
+                  <ListGroup>
+                    <ListGroupItem color="warning">No Records</ListGroupItem>
+                  </ListGroup>
+                )}
+                {gradeWeekSchedule[weekDay] && gradeWeekSchedule[weekDay].map((record: any) => (
+                  <ListGroup key={record.id}>
+                    <ListGroupItem className="mb-3" key={record.id}>{record.subject.name}</ListGroupItem>
+                  </ListGroup>
+                ))}
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </Table>
+      <DailyConfigureModal
+        groupId={groupId}
+        isOpen={isOpenAddSubjectModal}
+        onAdd={() => window.location.reload()}
+        onCancel={() => setIsOpenAddSubjectModal(false)}
+      />
+    </React.Fragment>
+  )
 }
 
-export class GradeGroupSchedule extends React.Component<any, GradeGroupScheduleState> {
-  state: GradeGroupScheduleState = {
-    gradeWeekSchedule: [],
-    showScheduleConfigureModal: false,
-    gradeGroup: undefined,
-    dayOfWeek: "",
-    activeSchedule: []
-  }
+function useGradeGroup(groupId: string): GradeGroupInterface | undefined {
+  const [gradeGroup, setGradeGroup] = React.useState(undefined)
 
-  componentDidMount = () => {
-    Promise.all([
-      ApiService.get(apiRoutes.gradeGroupDetail(this.props.match.params.id)),
-      ApiService.get(apiRoutes.gradeGroupSchedule(this.props.match.params.id)),
-    ])
-      .then(results => {
-        this.setState({
-          gradeGroup: results[0],
-          gradeWeekSchedule: results[1]
-        })
-      })
+  React.useEffect(function () {
+    const abortController = new AbortController()
+    ApiService
+      .get(apiRoutes.gradeGroupDetail(groupId), { signal: abortController.signal })
+      .then(gradeGroup => setGradeGroup(gradeGroup))
+    return () => abortController.abort()
+  }, [groupId])
 
-  }
+  return gradeGroup
+}
 
-  render() {
-    const {
-      gradeWeekSchedule,
-      showScheduleConfigureModal,
-      gradeGroup,
-      dayOfWeek,
-      activeSchedule
-    } = this.state;
+function useGradeWeekSchedule(groupId: string): { [key: string]: any } | undefined {
+  const [gradeWeekSchedule, setGradeWeekSchedule] = React.useState(undefined)
 
-    return (
-      <React.Fragment>
-        {gradeGroup && <h1>Schedule for {formatGradeGroup(gradeGroup)}</h1>}
-        <Table>
-          <thead>
-            <tr>{dayOfWeeks.map(d => <th key={d}>{d}</th>)}</tr>
-          </thead>
-          <tbody>
-            <tr>
-              {dayOfWeeks.map(weekDay => (
-                <td key={weekDay}>
-                  {!gradeWeekSchedule[weekDay] && <div>No Records</div>}
-                  {gradeWeekSchedule[weekDay] && gradeWeekSchedule[weekDay].map((record: any) => (
-                    <ListGroup key={record.id}>
-                      <ListGroupItem key={record.id}>{record.subject.name}</ListGroupItem>
-                    </ListGroup>
-                  ))}
-                  <Button onClick={this.showModal(weekDay)}>Configure</Button>
-                </td>
-              ))}
-            </tr>
-          </tbody>
-        </Table>
-        {gradeGroup && (
-          <DailyConfigureModal
-            isOpen={showScheduleConfigureModal} toggle={this.toggle} updateCurrentSchedule = {this.toggle}
-            dayOfWeek={dayOfWeek} currentDaySchedule={activeSchedule} gradeGroup={gradeGroup} />
-        )}
-      </React.Fragment>
-    )
-  }
+  React.useEffect(function () {
+    const abortController = new AbortController()
+    ApiService
+      .get(apiRoutes.gradeGroupSchedule(groupId), { signal: abortController.signal })
+      .then(gradeWeekSchedule => setGradeWeekSchedule(gradeWeekSchedule))
+      return () => abortController.abort()
+  }, [groupId])
 
-  toggle = () => {
-    this.setState({
-      showScheduleConfigureModal: !this.state.showScheduleConfigureModal
-    });
-  }
-
-  showModal = (weekDay: string) => (e: any) => {
-    this.setState({
-      dayOfWeek: weekDay,
-      showScheduleConfigureModal: true,
-      activeSchedule: this.state.gradeWeekSchedule[e.currentTarget.value]
-    });
-  }
+  return gradeWeekSchedule
 }

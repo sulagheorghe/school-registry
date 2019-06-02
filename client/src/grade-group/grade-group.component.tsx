@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Button, Collapse, Card, CardTitle, Spinner, Alert, CardHeader } from 'reactstrap'
+import { Table, Button, Collapse, Card, Spinner, Alert, CardHeader } from 'reactstrap'
 import { l10n } from '../l10n';
 import { ApiService } from '../shared/api.service';
 import { apiRoutes } from '../api.routes';
