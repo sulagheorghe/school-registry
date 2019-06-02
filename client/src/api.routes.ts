@@ -1,13 +1,19 @@
 export const apiRoutes = {
-  signIn: '/api/login',
-  students: '/api/students',
+  signIn: "/api/login",
+  students: "/api/students",
   studentDetail: (id: number) => `/api/students/${id}`,
-  gradeGroups: '/api/grade-groups',
-  gradeGroupDetail: (id:number) => `/api/grade-groups/${id}`,
-  subjects: '/api/subjects',
+  groupStudents: (groupId: string) => `/api/students/grade-group/${groupId}`,
+  gradeGroups: "/api/grade-groups",
+  gradeGroupDetail: (id: number) => `/api/grade-groups/${id}`,
+  subjects: "/api/subjects",
   subjectDetail: (id: number) => `/api/subjects/${id}`,
-  teachers: '/api/teachers',
-  teacherSubjects: '/api/teacher-subject',
-  schedule: '/api/schedule',
-  gradeGroupSchedule: (id:number) => `/api/schedule/grade-group/${id}`
-}
+  teachers: "/api/teachers",
+  teacherSubjects: "/api/teacher-subjects",
+  schedule: "/api/schedules",
+  gradeGroupSchedule: (gradeGroupId: number) =>
+    `/api/schedules/grade-group/${gradeGroupId}`,
+  gradeSubjectSchedule: (gradeGroupId: string, subjectId: string) =>
+    `/api/schedules/grade-group/${gradeGroupId}/subjects/${subjectId}`,
+  gradeGroupSubjectMarks: (gradeGroupId: string, subjectId: string) =>
+    `/api/marks/grade-group/${gradeGroupId}/subjects/${subjectId}`
+};

@@ -72,7 +72,7 @@ export class GradeGroupSchedule extends React.Component<any, GradeGroupScheduleS
         </Table>
         {gradeGroup && (
           <DailyConfigureModal
-            isOpen={showScheduleConfigureModal} toggle={this.toggle}
+            isOpen={showScheduleConfigureModal} toggle={this.toggle} updateCurrentSchedule = {this.toggle}
             dayOfWeek={dayOfWeek} currentDaySchedule={activeSchedule} gradeGroup={gradeGroup} />
         )}
       </React.Fragment>
