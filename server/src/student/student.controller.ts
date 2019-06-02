@@ -3,6 +3,7 @@ import { StudentService } from './student.service';
 import { CreateStudentDTO } from './dto/create-student.dto';
 import { Student } from './student.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Controller('/students')
 @UseGuards(AuthGuard('jwt'))

@@ -5,6 +5,7 @@ import { Schedule } from './schedule.entity';
 import { CreateScheduleRecordDTO } from './dto/create-schedule-record.dto';
 import { GradeGroup } from 'src/student/grade-group.entity';
 import { Subject } from 'src/subject/subject.entity';
+import { Teacher } from 'src/teacher/teacher.entity';
 
 @Injectable()
 export class ScheduleService {
@@ -48,6 +49,15 @@ export class ScheduleService {
       where: {
         gradeGroup: gradeGroup.id,
         subject: subject.id,
+      },
+      relations: ['teacher', 'subject', 'gradeGroup'],
+    });
+  }
+
+  public async getForTeacher(teacher: Teacher): Promise<Schedule[]> {
+    return await this.scheduleRepo.find({
+      where: {
+        teacher: teacher.id,
       },
       relations: ['teacher', 'subject', 'gradeGroup'],
     });

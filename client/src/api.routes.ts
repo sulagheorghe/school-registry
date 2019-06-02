@@ -10,6 +10,7 @@ export const apiRoutes = {
   teachers: "/api/teachers",
   teacherSubjects: "/api/teacher-subjects",
   schedule: "/api/schedules",
+  teacherSchedule: "/api/schedules/teacher",
   gradeGroupSchedule: (gradeGroupId: string) =>
     `/api/schedules/grade-group/${gradeGroupId}`,
   gradeSubjectSchedule: (gradeGroupId: string, subjectId: string) =>

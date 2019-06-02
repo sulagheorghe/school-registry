@@ -1,11 +1,15 @@
-import { Controller, Post, Body, UsePipes, ValidationPipe, Get, Param, NotFoundException, Put, Delete } from "@nestjs/common";
+import { Controller, Post, Body, UsePipes, ValidationPipe, Get, Param, NotFoundException, Put, Delete, UseGuards, UseInterceptors } from "@nestjs/common";
 import { CreateMarkDTO } from "./dto/create-mark.dto";
 import { MarkService } from "./mark.service";
 import { SubjectService } from "src/subject/subject.service";
 import { MonthValidation } from "src/common/pipes/month-validation.pipe";
 import { UpdateMarkDTO } from "./dto/update-mark.dto";
+import { AuthGuard } from "@nestjs/passport";
+import { TransformInterceptor } from "src/common/interceptors/transform.interceptor";
 
 @Controller('marks')
+@UseGuards(AuthGuard('jwt'))
+@UseInterceptors(TransformInterceptor)
 export class MarksController {
     constructor(
         private readonly markService: MarkService,
