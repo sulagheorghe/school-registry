@@ -24,7 +24,7 @@ export function GradeGroupSchedule(props: RouteComponentProps<{ id: string }>) {
         <h1>Schedule for {formatGradeGroup(gradeGroup)}</h1>
         <Button className="ml-3" onClick={() => setIsOpenAddSubjectModal(true)}>Add</Button>
       </div>
-      <Table>
+      <Table responsive>
         <thead>
           <tr>{dayOfWeeks.map(d => <th key={d}>{d}</th>)}</tr>
         </thead>
@@ -34,12 +34,12 @@ export function GradeGroupSchedule(props: RouteComponentProps<{ id: string }>) {
               <td key={weekDay}>
                 {!gradeWeekSchedule[weekDay] && (
                   <ListGroup>
-                    <ListGroupItem color="warning">No Records</ListGroupItem>
+                    <ListGroupItem className="text-nowrap" color="warning">No Records</ListGroupItem>
                   </ListGroup>
                 )}
                 {gradeWeekSchedule[weekDay] && gradeWeekSchedule[weekDay].map((record: any) => (
                   <ListGroup key={record.id}>
-                    <ListGroupItem className="mb-3" key={record.id}>{record.subject.name}</ListGroupItem>
+                    <ListGroupItem className="mb-3 text-nowrap" key={record.id}>{record.subject.name}</ListGroupItem>
                   </ListGroup>
                 ))}
               </td>
